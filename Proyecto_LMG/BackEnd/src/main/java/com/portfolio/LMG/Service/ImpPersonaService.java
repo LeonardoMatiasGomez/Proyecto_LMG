@@ -1,44 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.portfolio.LMG.Service;
 
 import com.portfolio.LMG.Entity.Persona;
-import com.portfolio.LMG.Interface.IntPersonaService;
-import com.portfolio.LMG.Repository.IntPersonaRepository;
+import com.portfolio.LMG.Repository.IPersonaRepository;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-/**
- *
- * @author Leo
- */
-public class ImpPersonaService implements IntPersonaService{
-    @Autowired IntPersonaRepository IntPersonaRepository;
+public class ImpPersonaService {
 
-    @Override
-    public List<Persona> getPersona() {
-        List<Persona> persona = IntPersonaRepository.findAll();
-        return persona;        
+    @Autowired
+    IPersonaRepository ipersonaRepository;
+
+    public List<Persona> list() {
+        return ipersonaRepository.findAll();
     }
 
-    @Override
-    public void savePersona(Persona persona) {
-        IntPersonaRepository.save(persona);
+    public Optional<Persona> getOne(int id) {
+        return ipersonaRepository.findById(id);
     }
 
-    @Override
-    public void deletePersona(Long id) {
-        IntPersonaRepository.deleteById(id);
+    public Optional<Persona> getByNombre(String nombre) {
+        return ipersonaRepository.findByNombre(nombre);
     }
 
-    @Override
-    public Persona findPerona(Long id) {
-        Persona persona = IntPersonaRepository.findById(id).orElse(null);
-        return persona;
+    public void save(Persona persona) {
+        ipersonaRepository.save(persona);
     }
-    
+
+    public void delete(int id) {
+        ipersonaRepository.deleteById(id);
+    }
+
+    public boolean existsById(int id) {
+        return ipersonaRepository.existsById(id);
+    }
+
+    public boolean existsByNombre(String nombre) {
+        return ipersonaRepository.existsByNombre(nombre);
+    }
 }
